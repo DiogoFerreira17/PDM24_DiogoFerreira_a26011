@@ -1,1 +1,4 @@
-# PDM_DiogoFerreira_a26011
+# Programação de Dispositivos Móveis
+
+Diogo Ferreira - 26011
+email: a26011@alunos.ipca.pt

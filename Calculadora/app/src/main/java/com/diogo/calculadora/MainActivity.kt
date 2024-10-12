@@ -21,6 +21,7 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MonotonicFrameClock
 import androidx.compose.runtime.currentCompositionLocalContext
@@ -51,30 +52,77 @@ class MainActivity : ComponentActivity() {
     }
 
 @Composable
-fun calculator(onClick: () -> Unit): Unit {
+fun calculator(onClick: () -> Unit) {
 
-    var visor by remember { mutableStateOf("0") }
-    var inputs by remember { mutableStateOf(mutableStateListOf<String>()) }
+    var visor by remember { mutableStateOf("0")}
+    var num1 by remember { mutableStateOf("")}
+    var num2 by remember { mutableStateOf("")}
+    var operator by remember { mutableStateOf("")}
+    var select by remember { mutableStateOf(false)}
 
-    fun addInput(value: String) {
-        if (value in listOf("+", "-", "*", "/")) {
-            if (visor.isNotEmpty()) {
-                inputs.add(visor)
-                visor = ""
+    fun addInput(value: String){
+        if(value in listOf("+", "-", "*", "/")){
+
+            operator = value
+
+            if(num1.isNotEmpty()){ // to acept negative numbers
+                select = true
+                visor = "0"
             }
-            inputs.add(value)
+            else{
+                num1+=value
+            }
+
         }
-        else {
-            if (visor == "0") {
-                visor = value
-            }
-            else {
-                visor += value
-            }
+        else if(!select){
+            visor = ""
+            num1 += value
+            visor = num1
+        }
+        else
+        {
+            visor = ""
+            num2 += value
+            visor = num2
         }
     }
 
+    fun clear(){
+        visor = "0"
+        num1 = ""
+        num2 = ""
+        operator = ""
+        select = false
+    }
 
+    fun Result() {
+        val number1 = num1.toDoubleOrNull() // returns string as a number, or null if the string is not a valid representation of a number
+        val number2 = num2.toDoubleOrNull()
+
+        if (number1 != null && number2 != null) {   // Dúvida !!!
+            val result = when (operator) {
+                "+" -> number1 + number2
+                "-" -> number1 - number2
+                "*" -> number1 * number2
+                "/" -> if (number2 != 0.0){
+                        number1 / number2
+                    }
+                    else Double.NaN // not a number
+                else -> Double.NaN
+            }
+            if(result % 1.0 == 0.0){
+                visor = result.toInt().toString()
+            }
+            else{
+                visor = result.toString()
+            }
+
+            num1 = visor  // to do multiple accounts
+            num2 = ""
+            operator = ""
+            select = false
+        }
+    }
 
     Column(
         modifier = with(Modifier) { fillMaxWidth() }
@@ -102,6 +150,7 @@ fun calculator(onClick: () -> Unit): Unit {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 3.dp, bottom = 3.dp),
+
             horizontalArrangement = Arrangement.Center
         ){
             FilledTonalButton(onClick = { },
@@ -124,7 +173,7 @@ fun calculator(onClick: () -> Unit): Unit {
                 Text("M+")
             }
             Button(
-                onClick = { inputs.clear();visor="0"},
+                onClick = {clear()},
                 modifier = Modifier
                     .width(85.dp)
                     .height(40.dp),
@@ -161,7 +210,7 @@ fun calculator(onClick: () -> Unit): Unit {
                 Text("+/-")
             }
             Button(
-                onClick = { inputs.clear();visor="0"},
+                onClick = {clear()},
                 modifier = Modifier
                     .width(85.dp)
                     .height(40.dp),
@@ -292,7 +341,7 @@ fun calculator(onClick: () -> Unit): Unit {
                     .height(40.dp)) {
                 Text(".")
             }
-            FilledTonalButton(onClick = { },
+            FilledTonalButton(onClick = { Result() },
                 modifier = Modifier
                     .width(85.dp)
                     .height(40.dp)) {

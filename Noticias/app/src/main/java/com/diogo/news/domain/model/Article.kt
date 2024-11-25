@@ -1,9 +1,10 @@
 package com.diogo.news.domain.model
 
+import org.intellij.lang.annotations.Language
+
 data class Article(
     val id: Int,
     val title: String,
-    val text: String,
-    val summary: String,
-    val category: String
+    val language: String,
+    val summary: String?
 )

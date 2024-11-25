@@ -1,5 +1,6 @@
 package com.diogo.news.domain.use_case
 
+import android.util.Log
 import com.diogo.news.domain.model.Article
 import com.diogo.news.domain.model.ArticleDetail
 import com.diogo.news.domain.repository.ArticleRepository

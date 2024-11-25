@@ -1,22 +1,23 @@
 package com.diogo.news.data.remote.api
 
-import ArticleDetailDto
-import com.diogo.news.data.remote.model.ArticleDto
+import com.diogo.news.data.remote.model.ArticleDetailDto
+import com.diogo.news.data.remote.model.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ArticleApi{
-    @GET("search-news")
+interface ArticleApi {
+    @GET("top-news")
     suspend fun getNews(
-        @Query("text") text: String,
+        @Query("source-country") sourceCountry: String,
         @Query("language") language: String,
+        @Query("date") date: String,
         @Query("api-key") apiKey: String
-    ): List<ArticleDto>
+    ): ApiResponse
 
-    @GET("search-news/{id}")
+    @GET("top-news/{id}")
     suspend fun getArticleDetail(
         @Path("id") articleId: Int,
         @Query("api-key") apiKey: String
-    ):ArticleDetailDto
+    ): ArticleDetailDto
 }

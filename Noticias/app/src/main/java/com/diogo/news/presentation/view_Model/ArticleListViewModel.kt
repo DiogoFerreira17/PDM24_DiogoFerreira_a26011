@@ -1,5 +1,6 @@
 package com.diogo.news.presentation.view_Model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diogo.news.data.remote.api.RetrofitInstance
@@ -17,13 +18,16 @@ class ArticleListViewModel : ViewModel(){
 
     val news = MutableStateFlow<List<Article>>(emptyList())
 
-    fun fetchNews(){
+    fun fetchNews() {
         viewModelScope.launch {
             try {
-                news.value = getNewsUseCase()
-            } catch (e: Exception){
+                val articles = getNewsUseCase()
+                //Log.e("Articles fetched", articles.toString())
+                news.value = articles
+            } catch (e: Exception) {
                 news.value = emptyList()
             }
         }
     }
+
 }

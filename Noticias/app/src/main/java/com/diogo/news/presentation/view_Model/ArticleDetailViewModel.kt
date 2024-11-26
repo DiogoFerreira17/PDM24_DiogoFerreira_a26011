@@ -1,5 +1,6 @@
 package com.diogo.news.presentation.view_Model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diogo.news.data.remote.api.RetrofitInstance

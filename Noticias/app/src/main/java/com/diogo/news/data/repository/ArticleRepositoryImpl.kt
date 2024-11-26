@@ -21,11 +21,24 @@ class ArticleRepositoryImpl(private val api: ArticleApi) : ArticleRepository {
         return topNews.map { it.toArticle() }
     }
 
-
     override suspend fun getArticleDetail(articleId: Int): ArticleDetail {
-        return api.getArticleDetail(
-            articleId = articleId,
-            apiKey = apiKey
-        ).toArticleDetail()
+        try {
+            val response = api.getArticleDetail(articleId, apiKey)
+            val articleDetailDto = response.news.firstOrNull { it.id == articleId }
+            //Log.e("Aqui", articleDetailDto.toString())
+
+            if (articleDetailDto != null) {
+                return articleDetailDto.toArticleDetail()
+            } else {
+                throw Exception("Article with id $articleId not found.")
+            }
+        } catch (e: Exception) {
+            Log.e("Error", "Error fetching article details: ${e.message}", e)
+            throw e
+        }
     }
+
+
+
+
 }

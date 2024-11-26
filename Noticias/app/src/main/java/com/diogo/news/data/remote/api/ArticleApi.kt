@@ -1,9 +1,8 @@
 package com.diogo.news.data.remote.api
 
-import com.diogo.news.data.remote.model.ArticleDetailDto
 import com.diogo.news.data.remote.model.ApiResponse
+import com.diogo.news.data.remote.model.ApiResponseDetails
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ArticleApi {
@@ -15,9 +14,9 @@ interface ArticleApi {
         @Query("api-key") apiKey: String
     ): ApiResponse
 
-    @GET("top-news/{id}")
+    @GET("retrieve-news")
     suspend fun getArticleDetail(
-        @Path("id") articleId: Int,
+        @Query("ids") articleId: Int,
         @Query("api-key") apiKey: String
-    ): ArticleDetailDto
+    ): ApiResponseDetails
 }

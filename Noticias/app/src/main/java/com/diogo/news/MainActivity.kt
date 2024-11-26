@@ -2,6 +2,7 @@ package com.diogo.news
 
 import ArticleListScreen
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
@@ -35,8 +36,9 @@ fun MainScreen() {
             selectedArticleId = articleId
         }
     } else {
+        Log.e("aqui",selectedArticleId.toString())
         val articleDetailViewModel: ArticleDetailViewModel = viewModel()
-        ArticleDetailScreen(articleDetailViewModel) {
+        ArticleDetailScreen(articleDetailViewModel,selectedArticleId!!) {
             selectedArticleId = null
         }
     }

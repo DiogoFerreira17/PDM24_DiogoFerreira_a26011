@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860040117163",
+    "project_id": "pdm-2425",
+    "storage_bucket": "pdm-2425.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860040117163:android:0ce722de9754f624edb0ee",
+        "android_client_info": {
+          "package_name": "com.diogo.shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwhDaajqtQsHTzJCw5SPeUYeT3-b4bias"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

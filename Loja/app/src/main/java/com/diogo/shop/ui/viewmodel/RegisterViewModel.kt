@@ -32,7 +32,6 @@ class RegisterViewModel: ViewModel() {
     fun register(user: User, onSuccess: () -> Unit, onError: (Exception) -> Unit) {
         viewModelScope.launch {
             try {
-
                 // Create the user in Firebase Auth
                 val authResult = authApi.register(user.email, user.password).await()
                 val firebaseUser = authResult.user

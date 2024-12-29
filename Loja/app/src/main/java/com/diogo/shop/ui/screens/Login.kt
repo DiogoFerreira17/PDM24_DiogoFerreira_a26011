@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -39,7 +40,8 @@ fun Login(
                 value = password,
                 onValueChange = { loginViewModel.updatePassword(it) },
                 label = { Text("Password") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                visualTransformation = PasswordVisualTransformation()
             )
             Button(
                 onClick = { loginViewModel.login() },

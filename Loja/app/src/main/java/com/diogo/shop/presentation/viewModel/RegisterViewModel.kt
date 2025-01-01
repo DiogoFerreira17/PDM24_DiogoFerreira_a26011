@@ -1,4 +1,4 @@
-package com.diogo.shop.ui.viewmodel
+package com.diogo.shop.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

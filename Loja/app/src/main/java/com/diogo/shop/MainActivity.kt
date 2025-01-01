@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
-import com.diogo.shop.ui.navigation.Nav
+import com.diogo.shop.navigation.Nav
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {

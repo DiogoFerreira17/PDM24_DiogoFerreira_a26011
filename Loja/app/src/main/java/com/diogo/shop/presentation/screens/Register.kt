@@ -1,4 +1,4 @@
-package com.diogo.shop.ui.screens
+package com.diogo.shop.presentation.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.diogo.shop.domain.model.User
-import com.diogo.shop.ui.viewmodel.RegisterViewModel
+import com.diogo.shop.presentation.viewModel.RegisterViewModel
 
 @Composable
 fun Register(

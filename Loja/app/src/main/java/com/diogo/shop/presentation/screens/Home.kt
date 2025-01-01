@@ -1,4 +1,4 @@
-package com.diogo.shop.ui.screens
+package com.diogo.shop.presentation.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

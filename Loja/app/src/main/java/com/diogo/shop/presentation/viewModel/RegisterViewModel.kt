@@ -30,7 +30,7 @@ class RegisterViewModel: ViewModel() {
         _password.value = newPassword
     }
 
-    fun register(user: User) {
+    fun register(user: User, onSuccess: () -> Unit, onError: (Exception) -> Unit) {
         viewModelScope.launch {
             try {
                 val authResult = authApi.register(user.email, user.password).await()
@@ -39,11 +39,12 @@ class RegisterViewModel: ViewModel() {
                 if (firebaseUser != null) {
                     user.ToAddUserDto()
                     dbAuth.signOut()
+                    onSuccess()
                 }
             } catch (e: Exception) {
-                Log.e("Registo","Erro ao registar utilizador")
+                Log.e("Registo", "Erro ao registar utilizador", e)
+                onError(e)
             }
         }
     }
-
 }

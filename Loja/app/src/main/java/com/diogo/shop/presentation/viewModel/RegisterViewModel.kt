@@ -1,5 +1,6 @@
 package com.diogo.shop.presentation.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diogo.shop.data.remote.api.AuthApi
@@ -29,21 +30,18 @@ class RegisterViewModel: ViewModel() {
         _password.value = newPassword
     }
 
-    fun register(user: User, onSuccess: () -> Unit, onError: (Exception) -> Unit) {
+    fun register(user: User) {
         viewModelScope.launch {
             try {
-                // Create the user in Firebase Auth
                 val authResult = authApi.register(user.email, user.password).await()
                 val firebaseUser = authResult.user
 
                 if (firebaseUser != null) {
-                    //user.id = firebaseUser.uid
                     user.ToAddUserDto()
-                    dbAuth.signOut() // Sign out the user
-                    onSuccess() // Notify success
+                    dbAuth.signOut()
                 }
             } catch (e: Exception) {
-                onError(e) // Handle error
+                Log.e("Registo","Erro ao registar utilizador")
             }
         }
     }

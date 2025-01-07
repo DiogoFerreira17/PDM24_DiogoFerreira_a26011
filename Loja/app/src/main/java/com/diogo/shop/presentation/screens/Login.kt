@@ -16,9 +16,17 @@ fun Login(
     navController: NavController,
     loginViewModel: LoginViewModel = viewModel()
 ) {
-    val loginState by loginViewModel.loginState.collectAsState()
     val email by loginViewModel.email.collectAsState()
     val password by loginViewModel.password.collectAsState()
+    val currentUser by loginViewModel.currentUser.collectAsState()
+
+    LaunchedEffect(currentUser) {
+        if (currentUser != null) {
+            navController.navigate("home") {
+                popUpTo("login") { inclusive = true }
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -48,24 +56,6 @@ fun Login(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Login")
-            }
-
-            when (loginState) {
-                is LoginViewModel.LoginState.Loading -> {
-                    CircularProgressIndicator()
-                }
-                is LoginViewModel.LoginState.Error -> {
-                    Text(
-                        text = (loginState as LoginViewModel.LoginState.Error).message,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
-                is LoginViewModel.LoginState.Success -> {
-                    navController.navigate("home") {
-                        popUpTo("login") { inclusive = true }
-                    }
-                }
-                else -> Unit
             }
 
             TextButton(

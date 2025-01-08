@@ -1,6 +1,5 @@
 package com.diogo.news.presentation.view_Model
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diogo.news.data.remote.api.RetrofitInstance
@@ -13,8 +12,8 @@ import kotlinx.coroutines.launch
 class ArticleDetailViewModel : ViewModel(){
 
     private val api= RetrofitInstance.api
-    private val repository = ArticleRepositoryImpl(api)
-    private val getArticleDetailUseCase = GetArticleDetailUseCase(repository)
+    private val articleRepository = ArticleRepositoryImpl(api)
+    private val getArticleDetailUseCase = GetArticleDetailUseCase(articleRepository)
 
     val articleDetail = MutableStateFlow<ArticleDetail?>(null)
 

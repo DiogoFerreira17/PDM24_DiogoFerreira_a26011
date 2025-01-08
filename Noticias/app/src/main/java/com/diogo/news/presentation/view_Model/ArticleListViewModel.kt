@@ -8,24 +8,29 @@ import com.diogo.news.data.repository.ArticleRepositoryImpl
 import com.diogo.news.domain.model.Article
 import com.diogo.news.domain.use_case.GetNewsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ArticleListViewModel : ViewModel(){
 
-    private val api= RetrofitInstance.api
-    private val repository = ArticleRepositoryImpl(api)
-    private val getNewsUseCase = GetNewsUseCase(repository)
+    private val api = RetrofitInstance.api
+    private val articleRepository = ArticleRepositoryImpl(api)
+    private val getNewsUseCase = GetNewsUseCase(articleRepository)
+    private val _news = MutableStateFlow<List<Article>>(emptyList())
 
-    val news = MutableStateFlow<List<Article>>(emptyList())
+    val news: StateFlow<List<Article>> = _news
 
-    fun fetchNews() {
+    init {
+        fetchNews()
+    }
+
+    private fun fetchNews() {
         viewModelScope.launch {
             try {
-                val articles = getNewsUseCase()
+                _news.value = getNewsUseCase()
                 //Log.e("Articles fetched", articles.toString())
-                news.value = articles
             } catch (e: Exception) {
-                news.value = emptyList()
+                _news.value = emptyList()
             }
         }
     }

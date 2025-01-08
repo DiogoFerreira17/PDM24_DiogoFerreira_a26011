@@ -7,7 +7,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,11 +19,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 
 @Composable
 fun ArticleListScreen(viewModel: ArticleListViewModel, onArticleClick: (Int) -> Unit) {
-    val news = viewModel.news.collectAsState().value
 
-    LaunchedEffect(Unit) {
-        viewModel.fetchNews()
-    }
+    val news = viewModel.news.collectAsState().value
 
     if (news.isEmpty()) {
         LoadingScreen()
@@ -46,13 +42,12 @@ fun ArticleListScreen(viewModel: ArticleListViewModel, onArticleClick: (Int) -> 
 fun LoadingScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center // Centraliza o texto
+        contentAlignment = Alignment.Center
     ) {
         Text(text = "A carregar noticias...")
     }
 }
 
-// Remove tags HTML presentes (summary)
 fun parseHtmlToText(html: String): AnnotatedString {
     return buildAnnotatedString {
         append(Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT).toString())
@@ -89,5 +84,3 @@ fun ArticleBox(article: Article, onClick: () -> Unit) {
         }
     }
 }
-
-

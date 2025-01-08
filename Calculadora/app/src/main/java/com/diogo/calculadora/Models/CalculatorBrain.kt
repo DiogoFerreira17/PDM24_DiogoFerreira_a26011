@@ -10,32 +10,26 @@ var num2 by mutableStateOf("")
 var operator by mutableStateOf("")
 var select by mutableStateOf(false)
 
-fun addInput(value: String){
-    if(value == "Rq"){
+fun addInput(value: String) {
+    if (value == "Rq") {
         num1 = value
         select = true
-    }
-    else if(value in listOf("+", "-", "*", "/")){
-
+    } else if (value in listOf("+", "-", "*", "/")) {
         operator = value
 
-        if(num1.isEmpty()){ // to acept negative numbers
-            num1+=value
-        }
-        else{
+        if (num1.isEmpty()) { // aceitar números negativos
+            num1 += value
+        } else {
             select = true
-            visor = "0"
         }
 
-    }
-    else if(!select){
-        visor = ""
+    } else if (!select) {
         num1 += value
         visor = num1
-    }
-    else
-    {
-        visor = ""
+    } else {
+        if (visor == num1) {  // Garante que só limpa o visor ao iniciar o segundo número
+            visor = "0"
+        }
         num2 += value
         visor = num2
     }
